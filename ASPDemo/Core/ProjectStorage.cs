@@ -7,22 +7,18 @@ namespace ASPDemo.Core
 {
     public static class ProjectStorage
     {
-        public static List<Project> Projects { get; private set; } = new List<Project>
-        {
-            new Project
-            {
-                Name = "CGI Examples",
-                Link = "https://github.com/kdrygin/CgiExamples",
-                Description = "dotNet Core 3.1 C# CGI Examples"
-            }
-        };
+        public static List<Project> Projects { get; private set; } = DBConnect.GetProjects();
         public static void Add(Project project)
         {
-            Projects.Add(project);
+            DBConnect.AddProject(project);
+            Projects = DBConnect.GetProjects();
+            //Projects.Add(project);
         }
-        public static void RemoveByName(string name)
+        public static void RemoveByName(Project project)
         {
-            Projects.RemoveAll(p => p.Name == name);
+            DBConnect.RemoveProject(project);
+            Projects = DBConnect.GetProjects();
+            //Projects.RemoveAll(p => p.Name == name);
         }
     }
 }
