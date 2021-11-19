@@ -20,13 +20,13 @@ namespace ASPDemo.Core
             {
                 conn.Open();
 
-                string sql = "SELECT * FROM Fish.Fish";
+                string sql = "SELECT * FROM Site.Project";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader res = cmd.ExecuteReader();
 
                 while (res.Read())
                 {
-                    projects.Add(new Project { Name = res[0].ToString(), Description = res[1].ToString(), Link = res[2].ToString() });
+                    projects.Add(new Project { ID = Convert.ToInt32(res[0]), Name = res[1].ToString(), Description = res[2].ToString(), Link = res[3].ToString() });
                     //Console.WriteLine($"<p><input type=checkbox name=\"{res[1]}\"> {res[1]}</p>");
                     //Console.WriteLine($"<option value=\"{res[1]}\">{res[1]}</option>");
                 }
@@ -40,13 +40,13 @@ namespace ASPDemo.Core
             conn.Close();
             return projects;
         }
-        public static void RemoveProject(Project project)
+        public static void RemoveProject(int id)
         {
             try
             {
                 string connStr = "server=192.168.1.44;user=name;database=test;port=3306;password=password";
                 MySqlConnection conn = new MySqlConnection(connStr);
-                MySqlCommand cmd = new MySqlCommand($"DELETE from Fish.Fish where FishName = \'{project.Name}\'", conn);
+                MySqlCommand cmd = new MySqlCommand($"DELETE from Site.Project where idProject = {id}", conn);
                 conn.Open();
                 cmd.ExecuteNonQuery();
                 //Response.Redirect("done.aspx");
@@ -63,7 +63,7 @@ namespace ASPDemo.Core
             {
                 string connStr = "server=192.168.1.44;user=name;database=test;port=3306;password=password";
                 MySqlConnection conn = new MySqlConnection(connStr);
-                MySqlCommand cmd = new MySqlCommand($"insert into Fish.Fish(FishName, MaxTemp, MaxTempTime) values('{project.Name}', '{project.Description}', '{project.Link}')", conn);
+                MySqlCommand cmd = new MySqlCommand($"insert into Site.Project(Name, Description, Link) values('{project.Name}', '{project.Description}', '{project.Link}')", conn);
                 conn.Open();
                 cmd.ExecuteNonQuery();
                 //Response.Redirect("done.aspx");

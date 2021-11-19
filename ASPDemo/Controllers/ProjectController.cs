@@ -24,9 +24,9 @@ namespace ASPDemo.Controllers
             ProjectStorage.Add(project);
             return RedirectToAction("Index");
         }
-        public IActionResult Remove(Project project)
+        public IActionResult Remove(int id)
         {
-            ProjectStorage.RemoveByName(project);
+            ProjectStorage.RemoveByName(id);
             return RedirectToAction("Index");
         }
     }

@@ -14,9 +14,9 @@ namespace ASPDemo.Core
             Projects = DBConnect.GetProjects();
             //Projects.Add(project);
         }
-        public static void RemoveByName(Project project)
+        public static void RemoveByName(int id)
         {
-            DBConnect.RemoveProject(project);
+            DBConnect.RemoveProject(id);
             Projects = DBConnect.GetProjects();
             //Projects.RemoveAll(p => p.Name == name);
         }
